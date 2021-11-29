@@ -19,11 +19,11 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class Config extends AbstractHelper
 {
-    protected const CONFIG_PATH_GENERAL = 'field_sort_in_checkout/general/%s';
+    public const CONFIG_PATH_GENERAL = 'field_sort_in_checkout/general/%s';
 
-    protected const CONFIG_PATH_ADDRESS_TO_SORT = 'field_sort_in_checkout/general/address/to_sort';
+    public const CONFIG_PATH_ADDRESS_TO_SORT = 'field_sort_in_checkout/general/address/to_sort';
 
-    protected const CONFIG_PATH_CUSTOMER_TO_SORT = 'field_sort_in_checkout/general/customer/to_sort';
+    public const CONFIG_PATH_CUSTOMER_TO_SORT = 'field_sort_in_checkout/general/customer/to_sort';
 
     /**
      * @var Json
