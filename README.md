@@ -1,24 +1,31 @@
-# VAT Validation for Brazilian
+# Field Sort in Checkout
 
-Add Brazilian tax document data validation to vat_id
+Ordene a exibição dos campos nos formulários do checkout.
 
-## Installation
+# Badges
 
-By composer
+Status Atual
 
-```sh
-composer require o2ti/vat-validation
-```
+[![Build Status](https://app.travis-ci.com/elisei/field-sort-in-checkout.svg?branch=Magento%402.3)](https://app.travis-ci.com/elisei/field-sort-in-checkout)
+[![StyleCI](https://github.styleci.io/repos/432329126/shield?branch=Magento@2.3)](https://github.styleci.io/repos/432329126?branch=Magento@2.3)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/939d6dc3ac134fb384b67075bda95022)](https://www.codacy.com/gh/elisei/field-sort-in-checkout/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=elisei/field-sort-in-checkout&amp;utm_campaign=Badge_Grade)
 
-Register the module
-```sh
-bin/magento setup:upgrade
-bin/magento setup:di:compile
-```
+Estatísticas
 
-## Settings
+[![Total Downloads](https://poser.pugx.org/o2ti/field-sort-in-checkout/downloads)](https://packagist.org/packages/o2ti/field-sort-in-checkout)
+[![Monthly Downloads](https://poser.pugx.org/o2ti/field-sort-in-checkout/d/monthly)](https://packagist.org/packages/o2ti/field-sort-in-checkout)
 
-In Admin -> Stores -> Configuration -> O2TI tab -> Vat-ID Validation for Brazilian
+Versões
+
+[![Latest Stable Version](https://poser.pugx.org/o2ti/field-sort-in-checkout/v/stable)](https://packagist.org/packages/o2ti/field-sort-in-checkout)
+
+## Recursos
+
+Defina a ordem em que os campos do formulário serão exibidos.
+
+## Instalação e Configuração
+
+Visite nossa [Wiki](wiki) e veja como configurar e instalar nosso módulo.
 
 ## License
 
