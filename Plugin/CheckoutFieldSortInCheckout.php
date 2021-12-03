@@ -51,7 +51,7 @@ class CheckoutFieldSortInCheckout
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['identification-step'])) {
             // phpcs:ignore
             $createAccountFields = &$jsLayout['components']['checkout']['children']['steps']['children']['identification-step']['children']['identification']['children']['createAccount']['children']['create-account-fieldset']['children'];
-            $createAccountFields =  $this->changesSortOrder->changeCreateAccountFieldSortOrder($createAccountFields);
+            $createAccountFields = $this->changesSortOrder->changeCreateAccountFieldSortOrder($createAccountFields);
         }
 
         return $jsLayout;
