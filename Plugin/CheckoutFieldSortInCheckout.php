@@ -10,6 +10,7 @@ namespace O2TI\FieldSortInCheckout\Plugin;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessor;
 use O2TI\FieldSortInCheckout\Helper\Config;
+use O2TI\FieldSortInCheckout\Model\ChangesSortOrder;
 
 /**
  *  CheckoutFieldSortInCheckout - Change Components.
@@ -22,12 +23,20 @@ class CheckoutFieldSortInCheckout
     private $config;
 
     /**
-     * @param Config $config
+     * @var ChangesSortOrder
+     */
+    private $changesSortOrder;
+
+    /**
+     * @param Config           $config
+     * @param ChangesSortOrder $changesSortOrder
      */
     public function __construct(
-        Config $config
+        Config $config,
+        ChangesSortOrder $changesSortOrder
     ) {
         $this->config = $config;
+        $this->changesSortOrder = $changesSortOrder;
     }
 
     /**
@@ -42,7 +51,7 @@ class CheckoutFieldSortInCheckout
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['identification-step'])) {
             // phpcs:ignore
             $createAccountFields = &$jsLayout['components']['checkout']['children']['steps']['children']['identification-step']['children']['identification']['children']['createAccount']['children']['create-account-fieldset']['children'];
-            $createAccountFields = $this->changeCreateAccountFieldSortOrder($createAccountFields);
+            $createAccountFields = $this->changesSortOrder->changeCreateAccountFieldSortOrder($createAccountFields);
         }
 
         return $jsLayout;
@@ -60,7 +69,7 @@ class CheckoutFieldSortInCheckout
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step'])) {
             // phpcs:ignore
             $shippingFields = &$jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']['shippingAddress']['children']['shipping-address-fieldset']['children'];
-            $shippingFields = $this->changeAddressFieldSortOrder($shippingFields);
+            $shippingFields = $this->changesSortOrder->changeAddressFieldSortOrder($shippingFields);
         }
 
         return $jsLayout;
@@ -79,69 +88,23 @@ class CheckoutFieldSortInCheckout
         foreach ($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['payments-list']['children'] as &$payment) {
             if (isset($payment['children']['form-fields'])) {
                 $billingFields = &$payment['children']['form-fields']['children'];
-                $billingFields = $this->changeAddressFieldSortOrder($billingFields);
+                $billingFields = $this->changesSortOrder->changeAddressFieldSortOrder($billingFields);
             }
         }
         // phpcs:ignore
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['afterMethods']['children']['billing-address-form'])) {
             // phpcs:ignore
             $billingAddressOnPage = &$jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['afterMethods']['children']['billing-address-form']['children']['form-fields']['children'];
-            $billingAddressOnPage = $this->changeAddressFieldSortOrder($billingAddressOnPage);
+            $billingAddressOnPage = $this->changesSortOrder->changeAddressFieldSortOrder($billingAddressOnPage);
         }
         // phpcs:ignore
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['beforeMethods']['children']['billing-address-form'])) {
             // phpcs:ignore
             $billingAddressOnPage = &$jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['beforeMethods']['children']['billing-address-form']['children']['form-fields']['children'];
-            $billingAddressOnPage = $this->changeAddressFieldSortOrder($billingAddressOnPage);
+            $billingAddressOnPage = $this->changesSortOrder->changeAddressFieldSortOrder($billingAddressOnPage);
         }
 
         return $jsLayout;
-    }
-
-    /**
-     * Change Components at Address Fields.
-     *
-     * @param array $fields
-     *
-     * @return array
-     */
-    public function changeAddressFieldSortOrder(array $fields): array
-    {
-        foreach ($fields as $key => $data) {
-            if (in_array('sortOrder', $fields[$key])) {
-                if ($fields[$key]['sortOrder']) {
-                    $newSortOrder = $this->config->getSortOrderByFieldAddress($key);
-                    if ($newSortOrder) {
-                        $fields[$key]['sortOrder'] = (int) $newSortOrder;
-                    }
-                }
-            }
-        }
-
-        return $fields;
-    }
-
-    /**
-     * Change Components at Customer Fields.
-     *
-     * @param array $fields
-     *
-     * @return array
-     */
-    public function changeCreateAccountFieldSortOrder(array $fields): array
-    {
-        foreach ($fields as $key => $data) {
-            if (in_array('sortOrder', $fields[$key])) {
-                if ($fields[$key]['sortOrder']) {
-                    $newSortOrder = $this->config->getSortOrderByFieldCustomer($key);
-                    if ($newSortOrder) {
-                        $fields[$key]['sortOrder'] = (int) $newSortOrder;
-                    }
-                }
-            }
-        }
-
-        return $fields;
     }
 
     /**
@@ -160,7 +123,6 @@ class CheckoutFieldSortInCheckout
             $jsLayout = $this->changeCreateAccount($jsLayout);
             $jsLayout = $this->changeShippingFields($jsLayout);
             $jsLayout = $this->changeBillingFields($jsLayout);
-            $layoutProcessor = $layoutProcessor;
         }
 
         return $jsLayout;
