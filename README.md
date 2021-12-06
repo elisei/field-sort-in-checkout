@@ -26,7 +26,7 @@ Defina a ordem em que os campos do formulário serão exibidos.
 
 ## Instalação e Configuração
 
-Visite nossa [Wiki](wiki) e veja como configurar e instalar nosso módulo.
+Visite nossa [Wiki](https://github.com/elisei/field-sort-in-checkout/wiki) e veja como configurar e instalar nosso módulo.
 
 ## License
 
